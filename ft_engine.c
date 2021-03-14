@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 22:40:14 by shyrno            #+#    #+#             */
-/*   Updated: 2021/03/14 18:57:14 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/03/14 19:06:00 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,16 @@ void ft_rra(t_ps *ps)
 
 	first = ps->stack_a;
 	ptr_stack_a = ps->stack_a;
-	while (ptr_stack_a->next)
+	while (ptr_stack_a->next->next)
 	{
 		ps->stock = ptr_stack_a->next->content;
-		printf("stock = %d\n", ps->stock);
 		ptr_stack_a->next->content = ptr_stack_a->content;
 		ptr_stack_a->content = ps->stock;
 		ptr_stack_a = ptr_stack_a->next;
 	}
 	ps->stock = first->content;
-	first->content = ptr_stack_a->content;
-	ptr_stack_a->content = ps->stock;
+	first->content = ptr_stack_a->next->content;
+	ptr_stack_a->next->content = ps->stock;
 }
 
 void	ft_swap(t_ps *ps)
