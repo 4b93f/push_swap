@@ -1,4 +1,4 @@
-PS_SRCS =		push_swap.c ft_struct_ps.c ft_engine.c
+PS_SRCS =		push_swap.c ft_struct_ps.c ft_engine.c lst/lst_utils.c
 CH_SRCS =		checker.c
 
 PS_HEADERS =	push_swap.h
@@ -17,14 +17,14 @@ LIB = ./libft/libft.a
 				@gcc -c -o $@ $?
 
 $(PS_NAME): ${PS_OBJ} $(CH_NAME)
-				@echo "[Libft compilation...]"
-				@$(MAKE) -C libft/
-				@$(MAKE) bonus -C libft/
 				@gcc -g3 ${FLAGS} ${PS_OBJ} ${LIB} -o ${PS_NAME}
+				@echo "[Done !]"
 
 $(CH_NAME): $(CH_OBJ)
+				@echo "[Libft compilation...]"
+				@$(MAKE) -C ./libft		
+				@$(MAKE) bonus -C ./libft
 				@gcc -g3 ${FLAGS} $(CH_OBJ) ${LIB} -o $(CH_NAME)
-				echo "[Done !]"
 
 all:	${PS_NAME} $(CH_NAME)
 

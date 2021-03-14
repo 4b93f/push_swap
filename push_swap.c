@@ -13,86 +13,56 @@
 #include "push_swap.h"
 void ft_error(int ret)
 {
-    return ;
+    static char *error[] = {
+    "Error with argument\n"
+    };
+    printf("%s", error[ret]);
+    exit(0);
 }
 
-void ft_stack_to_pile_a(int argc, char **argv, t_ps *ps)
-{
-    int i;
-    int j;
-    
-    i = 0;
-    
-    if (!(ps->pile_a = malloc(sizeof(int) * i + 1)))
-        return ;
-    i = -1;
-    j = 0;
-    while (argv[++j])
-        ps->pile_a[++i] = ft_atoi(argv[j]);
-    ps->pile_a[++i] = '\0';
-    return ;
-}
 
-t_stack_a *create_lst(void *content)
-{
-    t_stack_a *new;
 
-    new = malloc(sizeof(t_stack_a));
-    if (!new)
-        return (NULL);
-    new->content = ft_atoi(content);
-    new->next = NULL;
-    return (new);
-}
-
-void ft_init_lst(t_stack_a **lst, t_ps *ps, char **argv)
+void ft_create_stack(t_ps *ps, char **argv)
 {
     int i;
 
-    i = 0;
-    *lst = create_lst(argv[++i]);
-}
-
-void ft_print_list(t_stack_a *lst)
-{
-    printf("!\n");
-    while (lst)
+    i = 1;
+    ps->stack_a = ft_stacknew(ft_atoi(argv[i]));
+    ps->stack_b = ft_stacknew(0);    
+    while (argv[++i])
     {
-        printf("%d\n", lst->content);
-        lst = lst->next;
+        ft_stackadd_back(&ps->stack_a, ft_stacknew(ft_atoi(argv[i])));
+        ft_stackadd_back(&ps->stack_b, ft_stacknew(0));
     }
 }
 
 int main(int argc, char **argv)
 {
     t_ps *ps;
-    t_stack_a *lst;
-    
-    lst = NULL;
+
     ps = ft_malloc_ps();
     ps->size = argc - 1;
-    ft_init_lst(&lst, ps, argv);
-    ft_add
-    ft_print_list(lst);
-    return (0);
-    if (argc < 1)
-        ft_error(0);
-    ft_stack_to_pile_a(argc, argv, ps);
+    ft_create_stack(ps, argv);
+	ft_print_stack(ps->stack_a);
+	//return (0);
+    if (argc <= 1)
+        ft_error(LESS_ARG);
     if (argc == 4)
-    {
         ft_three(ps);
-        printf("%d %d %d\n", ps->pile_a[0], ps->pile_a[1], ps->pile_a[2]);
-    }
+	/*
     if (argc > 4  && argc < 51)
         ft_under_fifty(ps);
+	*/
     if (ft_sorted(ps))
     {
         printf("TRIED\n");
+		ft_print_stack(ps->stack_a);
         exit(0);
     }
     else
     {
         printf("NOT TRIED\n");
+		ft_print_stack(ps->stack_a);
         exit(0);
     }
     return 0;

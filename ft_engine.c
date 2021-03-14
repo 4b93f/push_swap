@@ -3,156 +3,137 @@
 /*                                                        :::      ::::::::   */
 /*   ft_engine.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shyrno <shyrno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 22:40:14 by shyrno            #+#    #+#             */
-/*   Updated: 2021/03/12 19:40:24 by shyrno           ###   ########.fr       */
+/*   Updated: 2021/03/14 18:57:14 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int ft_sorted(t_ps *ps)
+int		ft_sorted(t_ps *ps)
 {
-    int i;
+	t_stack_a *ptr_stack_a;
 
-    i = -1;
-    while (++i <= ps->size)
-    {
-        while(ps->pile_a[i + 1] && i <= ps->size)
-        {
-            if (ps->pile_a[i] < ps->pile_a[i + 1])
-                i++;
-            else
-                return (0);
-        }
-        return (1);
-    }
-    return (1);
+	ptr_stack_a = ps->stack_a;
+	//printf("ptr\n");
+	while (ptr_stack_a)
+	{
+		//printf("<%d %d>\n", ptr_stack_a->content, ptr_stack_a->next->content);
+		if (ptr_stack_a->next != 0 && ptr_stack_a->content >
+		ptr_stack_a->next->content)
+			return (0);
+		ptr_stack_a = ptr_stack_a->next;
+	}
+	return (1);
 }
 
-void ft_duplicate()
+void	find_little_big(t_ps *ps)
 {
-    
+	int			i;
+	t_stack_a	*ptr_stack_a;
+
+	i = 0;
+	ptr_stack_a = ps->stack_a;
+	ps->little = ptr_stack_a->content;
+	while (ptr_stack_a)
+	{
+		if (ps->big < ptr_stack_a->content)
+		{
+			ps->big = ptr_stack_a->content;
+			ps->big_index = i;
+		}
+		if (ps->little > ptr_stack_a->content)
+		{
+			ps->little = ptr_stack_a->content;
+			ps->little_index = i;
+		}
+		ptr_stack_a = ptr_stack_a->next;
+		i++;
+	}
+	return ;
 }
 
-void find_little_big(t_ps *ps)
+void	ft_sa(t_ps *ps)
 {
-    int i;
-    
-    i = -1;
-    ps->big = ps->pile_a[i + 1];
-    ps->little = ps->pile_a[i + 1];
-    while (++i < ps->size)
-    {
-        if (ps->big < ps->pile_a[i])
-            ps->big = ps->pile_a[i];
-        if (ps->little > ps->pile_a[i])
-            ps->little = ps->pile_a[i];  
-    }
-    return ;
+	t_stack_a *ptr_stack_a;
+
+	ptr_stack_a = ps->stack_a;
+	ps->stock = ptr_stack_a->content;
+	ptr_stack_a->content = ptr_stack_a->next->content;
+	ptr_stack_a = ptr_stack_a->next;
+	ptr_stack_a->content = ps->stock;
 }
 
-void ft_sa(t_ps *ps, int first, int second)
+void	ft_ra(t_ps *ps)
 {
-    int tmp;
+	t_stack_a *ptr_stack_a;
 
-    tmp = ps->pile_a[first];
-    ps->pile_a[first] = ps->pile_a[second];
-    ps->pile_a[second] = tmp;
+	ptr_stack_a = ps->stack_a;
+	ps->stock = ptr_stack_a->content;
+	ptr_stack_a->content = ptr_stack_a->next->content;
+	ptr_stack_a = ptr_stack_a->next;
+	ptr_stack_a->content = ps->stock;
+	ps->stock = ptr_stack_a->content;
+	ptr_stack_a->content = ptr_stack_a->next->content;
+	ptr_stack_a = ptr_stack_a->next;
+	ptr_stack_a->content = ps->stock;
 }
-
-void ft_ra(t_ps *ps)
-{
-    int tmp;
-    int i;
-
-    i = -1;
-    tmp = ps->pile_a[i + 1];
-    ps->pile_a[i + 1] = ps->pile_a[ps->size];
-    ps->pile_a[ps->size] = tmp;
-    while(++i < ps->size)
-    {
-        tmp = ps->pile_a[i];
-        ps->pile_a[i] = ps->pile_a[i + 1];
-        ps->pile_a[i + 1] = tmp;
-    }
-}
-
 
 void ft_rra(t_ps *ps)
 {
-    //printf("!!!! == %d %d %d\n", ps->pile_a[0], ps->pile_a[1], ps->pile_a[2]);
-    int tmp;
-    int i;
+	t_stack_a *ptr_stack_a;
+	t_stack_a *first;
 
-    i = 0;
-    tmp = ps->pile_a[i];
-    ps->pile_a[i] = ps->pile_a[ps->size - 1];
-    ps->pile_a[ps->size - 1] = tmp;
-    //printf("!!!! == %d %d %d\n", ps->pile_a[0], ps->pile_a[1], ps->pile_a[2]);
-    while(++i < ps->size - 1)
-    {
-        //printf("i = %d\n", i);
-        tmp = ps->pile_a[i];
-        ps->pile_a[i] = ps->pile_a[i + 1];
-        ps->pile_a[i + 1] = tmp;
-    }
+	first = ps->stack_a;
+	ptr_stack_a = ps->stack_a;
+	while (ptr_stack_a->next)
+	{
+		ps->stock = ptr_stack_a->next->content;
+		printf("stock = %d\n", ps->stock);
+		ptr_stack_a->next->content = ptr_stack_a->content;
+		ptr_stack_a->content = ps->stock;
+		ptr_stack_a = ptr_stack_a->next;
+	}
+	ps->stock = first->content;
+	first->content = ptr_stack_a->content;
+	ptr_stack_a->content = ps->stock;
 }
 
-
-void ft_swap(t_ps *ps, int first, int second)
+void	ft_swap(t_ps *ps)
 {
-    int i;
-
-    i = 0;
-    find_little_big(ps);
-    //printf("big = %d little = %d\n", ps->big, ps->little);
-    if (!ft_sorted(ps))
-    {
-        if (ps->pile_a[2] == ps->big && ps->pile_a[1] == ps->little)
-            ft_sa(ps, 0, 1);
-        else if (ps->pile_a[0] == ps->big && ps->pile_a[1] == ps->little) 
-            ft_ra(ps);
-        else if (ps->pile_a[1] == ps->big && ps->pile_a[0] == ps->little)
-        {
-            ft_sa(ps, 0, 1);
-            ft_ra(ps);
-        }
-        else if (ps->pile_a[1] == ps->big && ps->pile_a[2] == ps->little)
-            ft_rra(ps);
-        else if (ps->pile_a[0] == ps->big && ps->pile_a[2] == ps->little)
-        {
-            ft_sa(ps, 0, 1);
-            ft_rra(ps);
-        }
-    }
-    return ;
+	find_little_big(ps);
+	if (!ft_sorted(ps))
+	{
+		if (ps->big_index == 2 && ps->little_index == 1)
+			ft_sa(ps);
+		else if (ps->big_index == 0 && ps->little_index == 1) 
+			ft_ra(ps);
+		else if (ps->big_index == 1 && ps->little_index == 0)
+		{
+			ft_sa(ps);
+			ft_ra(ps);
+		}
+		else if (ps->big_index == 1 && ps->little_index == 2)
+			ft_rra(ps);
+		/*
+		else if (ps->pile_a[0] == ps->big && ps->pile_a[2] == ps->little)
+		{
+			ft_sa(ps, 0, 1);
+			ft_rra(ps);
+		}
+	}
+	*/
+	}
+	return ;
 }
-
 void ft_three(t_ps *ps)
 {
-    int i;
-    int j;
-    
-    j = 0;
-    i = 0;
-    while (j < ps->size)
-    {
-        ps->actual = ps->pile_a[j];
-        while (ps->pile_a[i] && ps->actual < ps->pile_a[++i])
-            ;
-        if (i < ps->size)
-            ft_swap(ps, j, i);        
-        j += 1;
-        i = j;
-    }
-    return ;
+	ft_swap(ps);        
 }
 
 void ft_under_fifty(t_ps *ps)
 {
-    
-    find_little_big(ps);
-    
+	find_little_big(ps);
 }

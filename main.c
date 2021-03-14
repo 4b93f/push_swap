@@ -1,38 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_struct_ps.c                                     :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/18 20:02:42 by chly-huc          #+#    #+#             */
-/*   Updated: 2021/03/14 18:31:54 by chly-huc         ###   ########.fr       */
+/*   Created: 2021/03/13 16:21:02 by chly-huc          #+#    #+#             */
+/*   Updated: 2021/03/13 16:27:53 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_ps	ft_create_ps(void)
+
+int main(int argc, char **argv)
 {
-	t_ps ps;
+	t_list *stack_a;
 
-	ps.size = 0;
-	ps.stock = 0;
-	ps.little = 0;
-	ps.big = 0;
-	ps.stack_a = NULL;
-	ps.stack_b = NULL;
-	ps.big_index = 0;
-	ps.little_index = 0;
-	return (ps);
-}
-
-t_ps	*ft_malloc_ps(void)
-{
-	t_ps *malloc_ps;
-
-	if (!(malloc_ps = malloc(sizeof(t_ps))))
-		return (NULL);
-	*malloc_ps = ft_create_ps();
-	return (malloc_ps);
+	stack_a = ft_lstnew(argv[1]);
+	ft_lstadd_back(&stack_a, ft_lstnew(argv[2]));
+	ft_print_list(stack_a);
 }

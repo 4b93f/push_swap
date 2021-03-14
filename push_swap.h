@@ -3,35 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shyrno <shyrno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 21:03:40 by shyrno            #+#    #+#             */
-/*   Updated: 2021/03/13 02:11:46 by shyrno           ###   ########.fr       */
+/*   Updated: 2021/03/14 18:31:05 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 
+typedef struct		s_stack
+{
+	int				content;
+	struct s_stack	*next;
+}					t_stack_a;
+
 typedef struct  s_ps
 {
-    int     *pile_a;
-    int     *pile_b;
+	int		stock;
     int     size;
-    int     actual;
     int     little;
     int     big;
-    int     i;
+    int     big_index;
+	int		little_index;
+    t_stack_a *stack_a;
+    t_stack_a *stack_b;
 }               t_ps;
 
-typedef struct  s_lst
+enum            e_error
 {
-    int     content;
-    void *next;
-}               t_stack_a;
+    LESS_ARG,    
+};
 
 
+t_ps        *ft_malloc_ps(void);
 
-t_ps	*ft_malloc_ps(void);
-void    ft_three(t_ps *ps);
-int     ft_sorted(t_ps *ps);
-void    ft_under_fifty(t_ps *ps);
+void        ft_three(t_ps *ps);
+int         ft_sorted(t_ps *ps);
+void        ft_under_fifty(t_ps *ps);
+t_stack_a	*ft_stacknew(int content);
+t_stack_a	*ft_stacklast(t_stack_a *lst);
+void	ft_stackadd_back(t_stack_a **alst, t_stack_a *new);
+void	ft_print_stack(t_stack_a *lst);
