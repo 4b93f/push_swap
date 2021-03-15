@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 21:03:40 by shyrno            #+#    #+#             */
-/*   Updated: 2021/03/14 18:31:05 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/03/15 18:22:09 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,3 +45,4 @@ t_stack_a	*ft_stacknew(int content);
 t_stack_a	*ft_stacklast(t_stack_a *lst);
 void	ft_stackadd_back(t_stack_a **alst, t_stack_a *new);
 void	ft_print_stack(t_stack_a *lst);
+void		find_little_big(t_ps *ps);

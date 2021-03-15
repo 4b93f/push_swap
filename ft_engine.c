@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 22:40:14 by shyrno            #+#    #+#             */
-/*   Updated: 2021/03/14 19:06:00 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/03/15 19:53:50 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ int		ft_sorted(t_ps *ps)
 	t_stack_a *ptr_stack_a;
 
 	ptr_stack_a = ps->stack_a;
-	//printf("ptr\n");
 	while (ptr_stack_a)
 	{
-		//printf("<%d %d>\n", ptr_stack_a->content, ptr_stack_a->next->content);
 		if (ptr_stack_a->next != 0 && ptr_stack_a->content >
 		ptr_stack_a->next->content)
 			return (0);
@@ -36,15 +34,17 @@ void	find_little_big(t_ps *ps)
 
 	i = 0;
 	ptr_stack_a = ps->stack_a;
+	if (!ptr_stack_a)
+		return ;
 	ps->little = ptr_stack_a->content;
 	while (ptr_stack_a)
 	{
-		if (ps->big < ptr_stack_a->content)
+		if (ps->big <= ptr_stack_a->content)
 		{
 			ps->big = ptr_stack_a->content;
 			ps->big_index = i;
 		}
-		if (ps->little > ptr_stack_a->content)
+		if (ps->little >= ptr_stack_a->content)
 		{
 			ps->little = ptr_stack_a->content;
 			ps->little_index = i;
@@ -64,6 +64,7 @@ void	ft_sa(t_ps *ps)
 	ptr_stack_a->content = ptr_stack_a->next->content;
 	ptr_stack_a = ptr_stack_a->next;
 	ptr_stack_a->content = ps->stock;
+	printf("sa\n");
 }
 
 void	ft_ra(t_ps *ps)
@@ -72,16 +73,16 @@ void	ft_ra(t_ps *ps)
 
 	ptr_stack_a = ps->stack_a;
 	ps->stock = ptr_stack_a->content;
-	ptr_stack_a->content = ptr_stack_a->next->content;
-	ptr_stack_a = ptr_stack_a->next;
+	while (ptr_stack_a->next)
+	{
+		ptr_stack_a->content = ptr_stack_a->next->content;
+		ptr_stack_a = ptr_stack_a->next;
+	}
 	ptr_stack_a->content = ps->stock;
-	ps->stock = ptr_stack_a->content;
-	ptr_stack_a->content = ptr_stack_a->next->content;
-	ptr_stack_a = ptr_stack_a->next;
-	ptr_stack_a->content = ps->stock;
+	printf("ra\n");
 }
 
-void ft_rra(t_ps *ps)
+void	ft_rra(t_ps *ps)
 {
 	t_stack_a *ptr_stack_a;
 	t_stack_a *first;
@@ -98,16 +99,16 @@ void ft_rra(t_ps *ps)
 	ps->stock = first->content;
 	first->content = ptr_stack_a->next->content;
 	ptr_stack_a->next->content = ps->stock;
+	printf("rra\n");
 }
 
-void	ft_swap(t_ps *ps)
+void	ft_three(t_ps *ps)
 {
-	find_little_big(ps);
 	if (!ft_sorted(ps))
 	{
 		if (ps->big_index == 2 && ps->little_index == 1)
 			ft_sa(ps);
-		else if (ps->big_index == 0 && ps->little_index == 1) 
+		else if (ps->big_index == 0 && ps->little_index == 1)
 			ft_ra(ps);
 		else if (ps->big_index == 1 && ps->little_index == 0)
 		{
@@ -116,23 +117,59 @@ void	ft_swap(t_ps *ps)
 		}
 		else if (ps->big_index == 1 && ps->little_index == 2)
 			ft_rra(ps);
-		/*
-		else if (ps->pile_a[0] == ps->big && ps->pile_a[2] == ps->little)
+		else if (ps->big_index == 0 && ps->little_index == 2)
 		{
-			ft_sa(ps, 0, 1);
+			ft_sa(ps);
 			ft_rra(ps);
 		}
 	}
-	*/
-	}
 	return ;
 }
-void ft_three(t_ps *ps)
+
+t_stack_a	*del_one(t_stack_a *lst)
 {
-	ft_swap(ps);        
+	t_stack_a *ptr_lst;
+	if (!lst)
+		return (NULL);
+	ptr_lst = lst;
+	lst = lst->next;
+	free(ptr_lst);
+	return (lst);
 }
 
-void ft_under_fifty(t_ps *ps)
+void	ft_pb(t_ps *ps)
 {
-	find_little_big(ps);
+	ft_stackadd_back(&ps->stack_b, ft_stacknew(ps->stack_a->content));
+	ps->stack_a = del_one(ps->stack_a);
+	printf("pb\n");
+}
+
+void	ft_under_fifty(t_ps *ps)
+{
+	if (!ft_sorted(ps))
+	{
+		while (ps->stack_a)
+		{
+			if (ps->size == 3)
+			{
+				ft_three(ps);
+				return ;
+			}
+			while (ps->little_index != 0)
+			{
+				find_little_big(ps);
+				if (ps->little_index == 1)
+					ft_sa(ps);
+				else
+					ft_ra(ps);
+				find_little_big(ps);
+			}
+			if (ps->little_index == 0)
+			{
+				ft_pb(ps);
+				ps->size--;
+				find_little_big(ps);
+			}
+		}
+	}
 }

@@ -27,12 +27,11 @@ void ft_create_stack(t_ps *ps, char **argv)
     int i;
 
     i = 1;
-    ps->stack_a = ft_stacknew(ft_atoi(argv[i]));
-    ps->stack_b = ft_stacknew(0);    
+    ps->stack_a = ft_stacknew(ft_atoi(argv[i]));    
     while (argv[++i])
     {
         ft_stackadd_back(&ps->stack_a, ft_stacknew(ft_atoi(argv[i])));
-        ft_stackadd_back(&ps->stack_b, ft_stacknew(0));
+        //ft_stackadd_back(&ps->stack_b, ft_stacknew(0));
     }
 }
 
@@ -40,22 +39,22 @@ int main(int argc, char **argv)
 {
     t_ps *ps;
 
+    if (argc <= 3)
+        ft_error(LESS_ARG);
     ps = ft_malloc_ps();
     ps->size = argc - 1;
     ft_create_stack(ps, argv);
 	ft_print_stack(ps->stack_a);
-	//return (0);
-    if (argc <= 1)
-        ft_error(LESS_ARG);
+	//printf("-------------------------\n");
+	find_little_big(ps);
     if (argc == 4)
         ft_three(ps);
-	/*
-    if (argc > 4  && argc < 51)
+    if (argc > 4 && argc < 51)
         ft_under_fifty(ps);
-	*/
     if (ft_sorted(ps))
     {
         printf("TRIED\n");
+		ft_print_stack(ps->stack_b);
 		ft_print_stack(ps->stack_a);
         exit(0);
     }

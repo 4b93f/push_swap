@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 17:14:17 by chly-huc          #+#    #+#             */
-/*   Updated: 2021/03/14 17:36:05 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/03/15 18:42:02 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_print_stack(t_stack_a *lst)
 		return ;
 	while (lst)
 	{
-		printf("%d\n", lst->content);
+		printf("{%d}\n", lst->content);
 		lst = lst->next;
 	}
 }
