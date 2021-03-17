@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 22:40:14 by shyrno            #+#    #+#             */
-/*   Updated: 2021/03/15 19:53:50 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/03/17 21:12:25 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	ft_three(t_ps *ps)
 {
 	if (!ft_sorted(ps))
 	{
+		printf("%d %d\n", ps->big_index, ps->little_index);
 		if (ps->big_index == 2 && ps->little_index == 1)
 			ft_sa(ps);
 		else if (ps->big_index == 0 && ps->little_index == 1)
@@ -146,6 +147,8 @@ void	ft_pb(t_ps *ps)
 
 void	ft_under_fifty(t_ps *ps)
 {
+	double divid;
+
 	if (!ft_sorted(ps))
 	{
 		while (ps->stack_a)
@@ -161,7 +164,13 @@ void	ft_under_fifty(t_ps *ps)
 				if (ps->little_index == 1)
 					ft_sa(ps);
 				else
-					ft_ra(ps);
+				{
+					divid = ps->little_index;
+					if (divid / 2 >= 0.5)
+						ft_rra(ps);
+					else
+						ft_ra(ps);
+				}
 				find_little_big(ps);
 			}
 			if (ps->little_index == 0)

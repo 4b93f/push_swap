@@ -1,17 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   checker.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/17 21:20:05 by chly-huc          #+#    #+#             */
-/*   Updated: 2021/03/17 21:20:26 by chly-huc         ###   ########.fr       */
+/*   Created: 2021/03/17 19:50:16 by chly-huc          #+#    #+#             */
+/*   Updated: 2021/03/17 20:21:48 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "libft/libft.h"
 
+#include "get_next_line/get_next_line.h"
 
 typedef struct		s_stack
 {
@@ -27,7 +29,6 @@ typedef struct  s_ps
     int     big;
     int     big_index;
 	int		little_index;
-	char **dup;
     t_stack_a *stack_a;
     t_stack_a *stack_b;
 }               t_ps;

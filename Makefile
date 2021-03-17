@@ -1,5 +1,5 @@
 PS_SRCS =		push_swap.c ft_struct_ps.c ft_engine.c lst/lst_utils.c
-CH_SRCS =		checker.c
+CH_SRCS =		checker.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c engine_checker.c lst/lst_utils.c ft_struct_ps.c
 
 PS_HEADERS =	push_swap.h
 CH_HEADERS = 	checker.h
