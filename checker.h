@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 19:50:16 by chly-huc          #+#    #+#             */
-/*   Updated: 2021/03/17 20:21:48 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/03/19 18:17:14 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,3 +49,6 @@ void	ft_rra(t_ps *ps);
 void	ft_ra(t_ps *ps);
 void	ft_sa(t_ps *ps);
 int		ft_sorted(t_ps *ps);
+void ft_pa_checker(t_ps *ps);
+void ft_pa(t_ps *ps);
+void	ft_stackadd_front(t_stack_a **alst, t_stack_a *new);

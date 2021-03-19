@@ -26,10 +26,7 @@ void ft_create_stack(t_ps *ps, char **argv)
 {
     int i;
 
-	if (ps->dup)
-    	i = 0;
-	else
-		i = 1;
+	i = 1;
     ps->stack_a = ft_stacknew(ft_atoi(argv[i]));    
     while (argv[++i])
     {
@@ -45,7 +42,7 @@ int find_duplicate(char **argv)
 	int len;
 	char *stock;
 
-	i = 1;
+	i = 0;
 	while(argv[++i])
 	{
 		j = i + 1;
@@ -58,44 +55,29 @@ int find_duplicate(char **argv)
 	}
 	return (1);
 }
-/*
-int main(int argc, char **argv)
-{
-    t_ps *ps;
 
-    if (argc == 1)
-        ft_error(LESS_ARG);
-	if (!find_duplicate(argv))
+void	sort_argv(t_ps *ps, char **argv)
+{
+	int i;
+	int j;
+	char *tmp;
+	
+	i = 0;
+	while (argv[++i])
 	{
-		printf("Error\nFin Duplicate.\n");
-		exit(0);
+		j = i + 1;
+		while (argv[j])
+		{
+			if (ft_atoi(argv[i]) > ft_atoi(argv[j]))
+			{
+				tmp = argv[i];
+				argv[i] = argv[j];
+				argv[j] = tmp;
+			}
+			j++;
+		}
 	}
-    ps = ft_malloc_ps();
-    ps->size = argc - 1;
-    ft_create_stack(ps, argv);
-	ft_print_stack(ps->stack_a);
-	//printf("-------------------------\n");
-	find_little_big(ps);
-    if (argc == 4)
-        ft_three(ps);
-    if (argc > 4 && argc < 51)
-        ft_under_fifty(ps);
-    if (ft_sorted(ps))
-    {
-        printf("TRIED\n");
-		ft_print_stack(ps->stack_b);
-		ft_print_stack(ps->stack_a);
-        exit(0);
-    }
-    else
-    {
-        printf("NOT TRIED\n");
-		ft_print_stack(ps->stack_a);
-        exit(0);
-    }
-    return 0;
 }
-*/
 
 int main(int argc, char **argv)
 {
@@ -103,54 +85,49 @@ int main(int argc, char **argv)
 
     ps = ft_malloc_ps();
 
-	printf("argc==%d et argv[1]== %s\n", argc, argv[1]);
-	if (argc == 2)
-		ps->dup = ft_split(argv[1], ' ');
-	//print_tab(ps->dup);
-    if (argc == 0)
+    ps->size = argc - 1;
+	if (argc > 19)
+	{
+		int stock;
+
+		stock = argc;
+		sort_argv(ps, argv);
+		if (ps->size <= 100)
+		
+		if ((stock % 2) == 0)
+		{
+		}
+		else
+	}
+    if (argc <= 3)
         ft_error(LESS_ARG);
-	//if (ps->dup)
-	//{
-	//	print_tab(ps->dup)
-	//	if (!find_duplicate(ps->dup))
-	//	printf("Error\nFin Duplicate.\n");
-	//	exit(0);
-	//}
+	if (argc < 4)
+		return (0);
 	if (!find_duplicate(argv))
 	{
 		printf("Error\nFin Duplicate.\n");
 		exit(0);
 	}
-	if (ps->dup)
-	{
-		ps->size = argc + 1;
-    	ft_create_stack(ps, ps->dup);
-	}
-	else
-	{
-    	ps->size = argc - 1;
-		ft_create_stack(ps, argv);
-	}
-	//ft_print_stack(ps->stack_a);
-	//printf("-------------------------\n");
+	ft_create_stack(ps, argv);
 	find_little_big(ps);
     if (argc == 4)
         ft_three(ps);
-    if (argc > 4 || argc == 2)
+    if (argc > 4)
 	{
-        ft_under_fifty(ps);
+        ft_under_twenty(ps);
 	}
     if (ft_sorted(ps))
     {
-        printf("TRIED\n");
-		ft_print_stack(ps->stack_b);
-		ft_print_stack(ps->stack_a);
+        //printf("TRIED\n");
+		//ft_print_stack(ps->stack_b);
+		//ft_print_stack(ps->stack_a);
         exit(0);
+		
     }
     else
     {
-        printf("NOT TRIED\n");
-		ft_print_stack(ps->stack_a);
+        //printf("NOT TRIED\n");
+		//ft_print_stack(ps->stack_a);
         exit(0);
     }
     return 0;

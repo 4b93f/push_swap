@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 20:02:42 by chly-huc          #+#    #+#             */
-/*   Updated: 2021/03/17 20:40:27 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/03/19 20:23:13 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_ps	ft_create_ps(void)
 	ps.little_index = 0;
 	ps.stack_b = NULL;
 	ps.stack_a = NULL;
-	ps.dup = NULL;
 	return (ps);
 }
 

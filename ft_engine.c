@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 22:40:14 by shyrno            #+#    #+#             */
-/*   Updated: 2021/03/17 21:12:25 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/03/19 20:22:48 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,12 @@ void	ft_sa(t_ps *ps)
 
 	ptr_stack_a = ps->stack_a;
 	ps->stock = ptr_stack_a->content;
-	ptr_stack_a->content = ptr_stack_a->next->content;
-	ptr_stack_a = ptr_stack_a->next;
-	ptr_stack_a->content = ps->stock;
+	if (ptr_stack_a->next)
+	{
+		ptr_stack_a->content = ptr_stack_a->next->content;
+		ptr_stack_a = ptr_stack_a->next;
+		ptr_stack_a->content = ps->stock;
+	}
 	printf("sa\n");
 }
 
@@ -106,7 +109,6 @@ void	ft_three(t_ps *ps)
 {
 	if (!ft_sorted(ps))
 	{
-		printf("%d %d\n", ps->big_index, ps->little_index);
 		if (ps->big_index == 2 && ps->little_index == 1)
 			ft_sa(ps);
 		else if (ps->big_index == 0 && ps->little_index == 1)
@@ -140,12 +142,26 @@ t_stack_a	*del_one(t_stack_a *lst)
 
 void	ft_pb(t_ps *ps)
 {
-	ft_stackadd_back(&ps->stack_b, ft_stacknew(ps->stack_a->content));
+	ft_stackadd_front(&ps->stack_b, ft_stacknew(ps->stack_a->content));
 	ps->stack_a = del_one(ps->stack_a);
 	printf("pb\n");
 }
 
-void	ft_under_fifty(t_ps *ps)
+
+void ft_pa(t_ps *ps)
+{
+	if (!ps->stack_b)
+		ps->stack_a = ft_stacknew((ps->stack_b->content));
+	ft_stackadd_front(&ps->stack_a, ft_stacknew(ps->stack_b->content));
+	printf("pa\n");
+}
+
+void	ft_above_twenty(t_ps *ps)
+{
+	return ;
+}
+
+void	ft_under_twenty(t_ps *ps)
 {
 	double divid;
 
@@ -156,6 +172,11 @@ void	ft_under_fifty(t_ps *ps)
 			if (ps->size == 3)
 			{
 				ft_three(ps);
+				while (ps->stack_b)
+				{
+					ft_pa(ps);
+					ps->stack_b = ps->stack_b->next;
+				}
 				return ;
 			}
 			while (ps->little_index != 0)

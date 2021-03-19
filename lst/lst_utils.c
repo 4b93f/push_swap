@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 17:14:17 by chly-huc          #+#    #+#             */
-/*   Updated: 2021/03/17 21:00:04 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/03/19 17:53:18 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ t_stack_a	*ft_stacklast(t_stack_a *lst)
 	while (lst->next)
 		lst = lst->next;
 	return (lst);
+}
+
+void	ft_stackadd_front(t_stack_a **alst, t_stack_a *new)
+{
+	if (!alst || !new)
+		return ;
+	new->next = *alst;
+	*alst = new;
 }
 
 void	ft_stackadd_back(t_stack_a **alst, t_stack_a *new)

@@ -10,11 +10,11 @@ CH_NAME =		checker
 PS_OBJ = 		${PS_SRCS:.c=.o}
 CH_OBJ =		$(CH_SRCS:.c=.o)
 
-FLAGS =			-Wall -Wextra -Werror
+FLAGS =			-Wall -Wextra -Werror -g3 -fsanitize=address
 LIB = ./libft/libft.a
 
 %.o: %.c
-				@gcc -c -o $@ $?
+				@gcc -c -g3 -o $@ $?
 
 $(PS_NAME): ${PS_OBJ} $(CH_NAME)
 				@gcc -g3 ${FLAGS} ${PS_OBJ} ${LIB} -o ${PS_NAME}
