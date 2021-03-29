@@ -21,14 +21,14 @@ typedef struct		s_stack
 
 typedef struct  s_ps
 {
-    int     big;
+    int		stock;
     int     size;
-	int		stock;
     int     little;
-    int    		big_index;
-    t_stack_a	*stack_a;
-    t_stack_a	*stack_b;
+    int     big;
+    int     big_index;
 	int		little_index;
+    t_stack_a *stack_a;
+    t_stack_a *stack_b;
 }               t_ps;
 
 enum            e_error
@@ -54,3 +54,4 @@ void ft_pa(t_ps *ps);
 int		ft_sorted(t_ps *ps);
 void	ft_above_twenty(t_ps *ps);
 void	ft_stackclear(t_stack_a **lst, void (*del)(void *));
+void ft_pa_checker(t_ps *ps);

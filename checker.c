@@ -34,16 +34,26 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
+t_stack_a	*ft_test(int content)
+{
+	t_stack_a *newcontent;
+
+	if (!(newcontent = malloc(sizeof(t_stack_a*))))
+		return (0);
+	newcontent->content = content;
+	newcontent->next = 0;
+	return (newcontent);
+}
+
 void ft_create_stack(t_ps *ps, char **argv)
 {
     int i;
 
     i = 1;
     ps->stack_a = ft_stacknew(ft_atoi(argv[i]));
-	ft_print_stack(ps->stack_a);
-	printf("[%d]\n", ps->stack_a->content);
     while (argv[++i])
     {
+
         ft_stackadd_back(&ps->stack_a, ft_stacknew(ft_atoi(argv[i])));
         //ft_stackadd_back(&ps->stack_b, ft_stacknew(0));
     }
@@ -54,6 +64,7 @@ int main(int argc, char **argv)
     t_ps *ps;
 	char *line;
 
+	line = NULL;
     ps = ft_malloc_ps();
     if (argc <= 3)
         ft_error(LESS_ARG);
@@ -64,7 +75,7 @@ int main(int argc, char **argv)
 	i = 0;
 	while (get_next_line(0, &line))
 	{
-		printf("line=%s\n",line);
+		//printf("line=%s\n",line);
 		if (!strcmp(line, "sa"))
 			ft_sa(ps);
 		if (!strcmp(line, "ra"))

@@ -38,6 +38,8 @@ int find_duplicate(char **argv)
 	char *stock;
 
 	i = 0;
+	j = 0;
+	len = 0;
 	while(argv[++i])
 	{
 		j = i + 1;
@@ -56,6 +58,8 @@ void	sort_argv(t_ps *ps, char **argv)
 	int i;
 	int j;
 	char *tmp;
+
+	tmp = NULL;
 	
 	i = 0;
 	while (argv[++i])

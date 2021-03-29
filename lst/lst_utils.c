@@ -35,6 +35,7 @@ void	ft_print_stack(t_stack_a *lst)
 	{
 		printf("{%d}\n", lst->content);
 		lst = lst->next;
+		//printf("{%d}\n", lst->content);
 	}
 }
 
@@ -42,11 +43,13 @@ t_stack_a	*ft_stacknew(int content)
 {
 	t_stack_a *newcontent;
 
-	if (!(newcontent = malloc(sizeof(t_stack_a))))
+	if (!(newcontent = malloc(sizeof(t_stack_a*))))
 		return (0);
 	newcontent->content = content;
+	//printf("content dans stacknew==%d\n", content);
 	//printf("newcontent dans stacknew=%d\n", newcontent->content);
-	newcontent->next = 0;
+	newcontent->next = NULL;
+	//printf("nc     ==%p\n", newcontent);
 	return (newcontent);
 }
 
