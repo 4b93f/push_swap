@@ -22,19 +22,6 @@ void ft_error(int ret)
     exit(0);
 }
 
-void ft_create_stack(t_ps *ps, char **argv)
-{
-    int i;
-
-    i = 1;
-    ps->stack_a = ft_stacknew(ft_atoi(argv[i]));    
-    while (argv[++i])
-    {
-        ft_stackadd_back(&ps->stack_a, ft_stacknew(ft_atoi(argv[i])));
-        //ft_stackadd_back(&ps->stack_b, ft_stacknew(0));
-    }
-}
-
 int	ft_strcmp(char *s1, char *s2)
 {
 	int i;
@@ -45,6 +32,21 @@ int	ft_strcmp(char *s1, char *s2)
 	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
 		i++;
 	return (s1[i] - s2[i]);
+}
+
+void ft_create_stack(t_ps *ps, char **argv)
+{
+    int i;
+
+    i = 1;
+    ps->stack_a = ft_stacknew(ft_atoi(argv[i]));
+	ft_print_stack(ps->stack_a);
+	printf("[%d]\n", ps->stack_a->content);
+    while (argv[++i])
+    {
+        ft_stackadd_back(&ps->stack_a, ft_stacknew(ft_atoi(argv[i])));
+        //ft_stackadd_back(&ps->stack_b, ft_stacknew(0));
+    }
 }
 
 int main(int argc, char **argv)
@@ -62,7 +64,7 @@ int main(int argc, char **argv)
 	i = 0;
 	while (get_next_line(0, &line))
 	{
-		//printf("%s\n",line);
+		printf("line=%s\n",line);
 		if (!strcmp(line, "sa"))
 			ft_sa(ps);
 		if (!strcmp(line, "ra"))

@@ -38,6 +38,8 @@ enum            e_error
     LESS_ARG,    
 };
 
+
+
 t_ps        *ft_malloc_ps(void);
 int         ft_sorted(t_ps *ps);
 t_stack_a	*ft_stacknew(int content);

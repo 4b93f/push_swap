@@ -53,3 +53,4 @@ void	ft_print_stack(t_stack_a *lst);
 void ft_pa(t_ps *ps);
 int		ft_sorted(t_ps *ps);
 void	ft_above_twenty(t_ps *ps);
+void	ft_stackclear(t_stack_a **lst, void (*del)(void *));

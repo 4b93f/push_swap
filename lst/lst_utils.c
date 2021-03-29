@@ -12,6 +12,21 @@
 
 #include "../push_swap.h"
 
+void	ft_stackclear(t_stack_a **lst, void (*del)(void *))
+{
+	t_stack_a *tmp;
+
+	if (lst || del)
+	{
+		while (*lst)
+		{
+			tmp = (*lst)->next;
+			free(*lst);
+			*lst = tmp;
+		}
+	}
+}
+
 void	ft_print_stack(t_stack_a *lst)
 {
 	if (!lst)
@@ -30,6 +45,7 @@ t_stack_a	*ft_stacknew(int content)
 	if (!(newcontent = malloc(sizeof(t_stack_a))))
 		return (0);
 	newcontent->content = content;
+	//printf("newcontent dans stacknew=%d\n", newcontent->content);
 	newcontent->next = 0;
 	return (newcontent);
 }
