@@ -27,6 +27,13 @@ typedef struct  s_ps
     int     big;
     int     big_index;
 	int		little_index;
+    int     nbr_list;
+    int     **tab_lst;
+    int     *lst_size;
+    int     hold_first;
+    int     hold_second;
+    t_stack_a *sorted_lst;
+    t_stack_a *ptr_stack_a;
     t_stack_a *stack_a;
     t_stack_a *stack_b;
 }               t_ps;
@@ -55,3 +62,4 @@ int		ft_sorted(t_ps *ps);
 void	ft_above_twenty(t_ps *ps);
 void	ft_stackclear(t_stack_a **lst, void (*del)(void *));
 void ft_pa_checker(t_ps *ps);
+void	ft_big(t_ps *ps);

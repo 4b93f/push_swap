@@ -24,6 +24,12 @@ t_ps	ft_create_ps(void)
 	ps.little_index = 0;
 	ps.stack_b = NULL;
 	ps.stack_a = NULL;
+	ps.nbr_list = 0;
+	ps.ptr_stack_a = NULL;
+	ps.sorted_lst = NULL;
+	ps.lst_size = NULL;
+	ps.hold_first = 0;
+	ps.hold_second = 0;
 	return (ps);
 }
 

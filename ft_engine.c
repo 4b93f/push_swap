@@ -193,6 +193,8 @@ void	ft_under_twenty(t_ps *ps)
 						ft_ra(ps);
 				}
 				find_little_big(ps);
+				if (ft_sorted(ps))
+					return;
 			}
 			if (ps->little_index == 0)
 			{
@@ -202,4 +204,67 @@ void	ft_under_twenty(t_ps *ps)
 			}
 		}
 	}
+}
+
+int			ft_find_in_list(int content, int *lst, int size)
+{
+	int i;
+
+	i = -1;
+	//printf("size=%d\n", size);
+	while (++i < size)
+	{
+		printf("content==%d\n", content);
+		printf("lst[i]==%d\n", lst[i]);
+		//printf("i=%d\n", i);
+		if (content == lst[i])
+			return (1);
+	}
+	return (0);
+}
+
+int ft_find_index_back(t_ps *ps)
+{
+
+}
+
+void ft_find_index_top(t_ps *ps)
+{
+	int index;
+	int j;
+	
+	index = 0;
+	j = 0;
+	ps->ptr_stack_a = ps->stack_a;
+	while (ps->tab_lst[index])
+	{
+		while (ps->ptr_stack_a)
+		{
+			if (ft_find_in_list(ps->ptr_stack_a->content, ps->tab_lst[j] , ps->lst_size[j]))
+			{
+				//printf("FIND\n");
+				ps->hold_first = index;
+				return;
+			}
+			printf("i ===========] %d\n", index);
+			index++;
+			ps->ptr_stack_a = ps->ptr_stack_a->next;
+		}
+		index++;
+	}
+	ps->hold_first = index;
+}
+
+void	ft_big(t_ps *ps)
+{
+	int i;
+
+	while (1)
+	{
+		ft_find_index_top(ps);
+		printf("!%d!\n", ps->hold_first);
+		exit(0);
+		ft_find_index_back(ps);
+	}
+	return ;
 }

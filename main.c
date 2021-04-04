@@ -15,9 +15,8 @@
 
 int main(int argc, char **argv)
 {
-	t_list *stack_a;
+	int **test = malloc(sizeof(int*) * 2);
 
-	stack_a = ft_lstnew(argv[1]);
-	ft_lstadd_back(&stack_a, ft_lstnew(argv[2]));
-	ft_print_list(stack_a);
+	if (test[6])
+		printf("WHAT");
 }
