@@ -63,3 +63,4 @@ void	ft_above_twenty(t_ps *ps);
 void	ft_stackclear(t_stack_a **lst, void (*del)(void *));
 void ft_pa_checker(t_ps *ps);
 void	ft_big(t_ps *ps);
+int		ft_stacksize(t_stack_a *lst);

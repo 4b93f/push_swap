@@ -12,6 +12,21 @@
 
 #include "../push_swap.h"
 
+int		ft_stacksize(t_stack_a *lst)
+{
+	int i;
+
+	if (!lst)
+		return (0);
+	i = 0;
+	while (lst != NULL)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
+}
+
 void	ft_stackclear(t_stack_a **lst, void (*del)(void *))
 {
 	t_stack_a *tmp;
@@ -33,7 +48,7 @@ void	ft_print_stack(t_stack_a *lst)
 		return ;
 	while (lst)
 	{
-		printf("{%d}\n", lst->content);
+		printf("stack==$%d$\n", lst->content);
 		lst = lst->next;
 		//printf("{%d}\n", lst->content);
 	}

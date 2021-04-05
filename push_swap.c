@@ -171,7 +171,7 @@ int main(int argc, char **argv)
 	}
     if (ft_sorted(ps))
     {
-        //printf("TRIED\n");
+        printf("TRIED\n");
 		//ft_print_stack(ps->stack_b);
 		//ft_print_stack(ps->stack_a);
 		ft_stackclear(&ps->stack_a, free);

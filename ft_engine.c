@@ -156,46 +156,49 @@ void ft_pa(t_ps *ps)
 	printf("pa\n");
 }
 
-void	ft_above_twenty(t_ps *ps)
+void three_left(t_ps *ps)
 {
-	return ;
+	if (ps->size == 3)
+	{
+		ft_three(ps);
+		while (ps->stack_b)
+		{
+			ft_pa(ps);
+			ps->stack_b = ps->stack_b->next;
+		}
+	}
 }
 
-void	ft_under_twenty(t_ps *ps)
+void up_and_down_algo(t_ps *ps)
 {
 	double divid;
 
+	while (ps->little_index != 0)
+	{
+		find_little_big(ps);
+		if (ps->little_index == 1)
+			ft_sa(ps);
+		else
+		{
+			divid = ps->little_index;
+			if (divid / 2 >= 0.5)
+				ft_rra(ps);
+			else
+				ft_ra(ps);
+		}
+		find_little_big(ps);
+		if (ft_sorted(ps))
+			return;
+	}
+}
+void	ft_under_twenty(t_ps *ps)
+{
 	if (!ft_sorted(ps))
 	{
 		while (ps->stack_a)
 		{
-			if (ps->size == 3)
-			{
-				ft_three(ps);
-				while (ps->stack_b)
-				{
-					ft_pa(ps);
-					ps->stack_b = ps->stack_b->next;
-				}
-				return ;
-			}
-			while (ps->little_index != 0)
-			{
-				find_little_big(ps);
-				if (ps->little_index == 1)
-					ft_sa(ps);
-				else
-				{
-					divid = ps->little_index;
-					if (divid / 2 >= 0.5)
-						ft_rra(ps);
-					else
-						ft_ra(ps);
-				}
-				find_little_big(ps);
-				if (ft_sorted(ps))
-					return;
-			}
+			three_left(ps);
+			up_and_down_algo(ps);
 			if (ps->little_index == 0)
 			{
 				ft_pb(ps);
@@ -214,8 +217,8 @@ int			ft_find_in_list(int content, int *lst, int size)
 	//printf("size=%d\n", size);
 	while (++i < size)
 	{
-		printf("content==%d\n", content);
-		printf("lst[i]==%d\n", lst[i]);
+		//printf("content==%d\n", content);
+		//printf("lst[i]==%d\n", lst[i]);
 		//printf("i=%d\n", i);
 		if (content == lst[i])
 			return (1);
@@ -223,48 +226,102 @@ int			ft_find_in_list(int content, int *lst, int size)
 	return (0);
 }
 
-int ft_find_index_back(t_ps *ps)
+int ft_find_index_back(t_ps *ps, int j)
 {
+	int i;
+	int max;
 
+	i = 0;
+	max = (ft_stacksize(ps->stack_a) - 1);
+	ps->ptr_stack_a = ps->stack_a;
+	while (max >= 0)
+	{
+		ps->ptr_stack_a = ps->stack_a;
+		while (i++ < max)
+			ps->ptr_stack_a = ps->ptr_stack_a->next;
+		//printf("{%d}\n", ps->ptr_stack_a->content);
+		if (ft_find_in_list(ps->ptr_stack_a->content, ps->tab_lst[j] , ps->lst_size[j]))
+		{
+			//printf("FIND\n");
+			ps->hold_second = i;
+			return (1);
+		}
+		i = 0;
+		max--;
+	}
+	return (0);
 }
 
-void ft_find_index_top(t_ps *ps)
+int  ft_find_index_top(t_ps *ps, int j)
 {
 	int index;
-	int j;
-	
+
 	index = 0;
-	j = 0;
 	ps->ptr_stack_a = ps->stack_a;
-	while (ps->tab_lst[index])
+	while (ps->ptr_stack_a)
 	{
-		while (ps->ptr_stack_a)
+		if (ft_find_in_list(ps->ptr_stack_a->content, ps->tab_lst[j] , ps->lst_size[j]))
 		{
-			if (ft_find_in_list(ps->ptr_stack_a->content, ps->tab_lst[j] , ps->lst_size[j]))
-			{
-				//printf("FIND\n");
-				ps->hold_first = index;
-				return;
-			}
-			printf("i ===========] %d\n", index);
-			index++;
-			ps->ptr_stack_a = ps->ptr_stack_a->next;
+			//printf("FIND\n");
+			ps->hold_first = index;
+			return (1);
 		}
+		//printf("i ===========] %d\n", index);
 		index++;
+		ps->ptr_stack_a = ps->ptr_stack_a->next;
 	}
-	ps->hold_first = index;
+	return (0);
 }
 
 void	ft_big(t_ps *ps)
 {
 	int i;
+	int itab;
+	int gototop;
+	int up;
 
-	while (1)
+	while (!ft_sorted(ps))
 	{
-		ft_find_index_top(ps);
+		itab = 0;
+		while (ps->lst_size[itab] == 0 && itab <= ps->nbr_list - 1)
+			itab++;
+		up = 1;
+		if (!ft_find_index_top(ps, itab))
+			return ;
+		if (!ft_find_index_back(ps, itab))
+			return ;
 		printf("!%d!\n", ps->hold_first);
-		exit(0);
-		ft_find_index_back(ps);
+		printf("!%d!\n", ps->hold_second);
+		//printf("<%d>", ft_stacksize(ps->stack_a) - ps->hold_second + 1);
+		if ((ps->hold_first < (ft_stacksize(ps->stack_a)) - ps->hold_second + 1))
+		{
+			up = 0;
+			gototop = ps->hold_first;
+		}
+		else
+		{
+			gototop = ps->hold_second;
+		}
+		ps->little_index = gototop;
+		three_left(ps);
+		while (ps->little_index != 0)
+		{
+			if (ft_sorted(ps))
+				return;
+			//find_little_big(ps);
+			if (ps->little_index == 1)
+				ft_sa(ps);
+			else
+			{
+				if (up == 1)
+					ft_rra(ps);
+				else
+					ft_ra(ps);
+			}
+			ps->lst_size[itab]--;
+			break;
+		}
+		ft_pb(ps);
+		ft_print_stack(ps->stack_b);
 	}
-	return ;
 }
