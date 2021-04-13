@@ -26,7 +26,9 @@ t_stack_a *ft_create_stack(t_ps *ps, char **argv)
     int i;
 
 	i = 1;
-    list = ft_stacknew(ft_atoi(argv[i]));    
+    list = ft_stacknew(ft_atoi(argv[i]));
+	if (!argv)
+		return(list);
     while (argv[++i])
         ft_stackadd_back(&list, ft_stacknew(ft_atoi(argv[i])));
 	return (list);

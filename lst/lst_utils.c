@@ -61,10 +61,7 @@ t_stack_a	*ft_stacknew(int content)
 	if (!(newcontent = malloc(sizeof(t_stack_a*))))
 		return (0);
 	newcontent->content = content;
-	//printf("content dans stacknew==%d\n", content);
-	//printf("newcontent dans stacknew=%d\n", newcontent->content);
 	newcontent->next = NULL;
-	//printf("nc     ==%p\n", newcontent);
 	return (newcontent);
 }
 

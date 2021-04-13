@@ -27,9 +27,11 @@ t_ps	ft_create_ps(void)
 	ps.nbr_list = 0;
 	ps.ptr_stack_a = NULL;
 	ps.sorted_lst = NULL;
+	ps.ptr_stack_b = NULL;
 	ps.lst_size = NULL;
 	ps.hold_first = 0;
 	ps.hold_second = 0;
+	ps.b_size = 0;
 	return (ps);
 }
 

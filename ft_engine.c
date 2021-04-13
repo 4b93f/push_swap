@@ -85,6 +85,21 @@ void	ft_ra(t_ps *ps)
 	printf("ra\n");
 }
 
+void	ft_rb(t_ps *ps)
+{
+	t_stack_a *ptr_stack_b;
+
+	ptr_stack_b = ps->stack_b;
+	ps->stock = ptr_stack_b->content;
+	while (ptr_stack_b->next)
+	{
+		ptr_stack_b->content = ptr_stack_b->next->content;
+		ptr_stack_b = ptr_stack_b->next;
+	}
+	ptr_stack_b->content = ps->stock;
+	printf("rb\n");
+}
+
 void	ft_rra(t_ps *ps)
 {
 	t_stack_a *ptr_stack_a;
@@ -103,6 +118,26 @@ void	ft_rra(t_ps *ps)
 	first->content = ptr_stack_a->next->content;
 	ptr_stack_a->next->content = ps->stock;
 	printf("rra\n");
+}
+
+void	ft_rrb(t_ps *ps)
+{
+	t_stack_a *ptr_stack_b;
+	t_stack_a *first;
+
+	first = ps->stack_b;
+	ptr_stack_b = ps->stack_b;
+	while (ptr_stack_b->next->next)
+	{
+		ps->stock = ptr_stack_b->next->content;
+		ptr_stack_b->next->content = ptr_stack_b->content;
+		ptr_stack_b->content = ps->stock;
+		ptr_stack_b = ptr_stack_b->next;
+	}
+	ps->stock = first->content;
+	first->content = ptr_stack_b->next->content;
+	ptr_stack_b->next->content = ps->stock;
+	printf("rrb\n");
 }
 
 void	ft_three(t_ps *ps)
@@ -273,6 +308,80 @@ int  ft_find_index_top(t_ps *ps, int j)
 	return (0);
 }
 
+int find_index(t_ps *ps)
+{
+	int stock;
+	int index;
+
+	index = 0;
+	stock = 0;
+	ps->ptr_stack_b = ps->stack_b;
+	ps->ptr_stack_a = ps->stack_a;
+	while (index < ps->b_size && ps->ptr_stack_b)
+	{
+		//printf("!\n");
+		if (ps->ptr_stack_b->content > stock)
+		{
+			if (ps->ptr_stack_b->content - stock > ps->ptr_stack_b->content - ps->ptr_stack_a->content)
+				stock = ps->ptr_stack_b->content;
+		}
+		ps->ptr_stack_b = ps->ptr_stack_b->next;
+		index++;
+	}
+	printf("stock{%d}\n", stock);
+	printf("push avec{%d}\n", ps->ptr_stack_a->content);
+	//printf("%d\n", ps->b_size);
+	index--;
+	if (stock == ps->stack_b->content)
+		index = 0;
+	//printf("index[%d]\n", index);
+	return(index);
+}
+
+void insert_before(t_ps *ps, int i)
+{
+	return;
+}
+
+void insert_after(t_ps *ps, int i)
+{
+	t_stack_a *new;
+	double index;
+
+	i = 0;
+	index = 0;
+	ps->ptr_stack_b = ps->stack_b;
+	ps->ptr_stack_a = ps->stack_a;
+	if (!ps->ptr_stack_b)
+		return;
+	while (ps->ptr_stack_b && ps->ptr_stack_b->content < ps->ptr_stack_a->content && index <= ps->b_size)
+	{
+		ps->ptr_stack_b = ps->ptr_stack_b->next;
+		index++;
+	}
+	index = find_index(ps);
+	index--;
+	printf("i{%f}\n", index);
+	// if (ps->b_size - index <= index)
+	// {
+	// 	index = ps->b_size - index;
+	// 	while (index-- > 0)
+	// 		ft_rrb(ps);
+	// }
+	while (index-- > 0)
+		ft_rb(ps);
+}
+
+void ft_insert(t_ps *ps, int i, int instruction)
+{
+	if (!ps->ptr_stack_b)
+		ps->ptr_stack_b = ft_stacknew(ps->stack_a->content);
+	insert_after(ps, i);
+	ps->b_size++;
+	if(ps->b_size == 6)
+		exit(0);
+}
+
 void	ft_big(t_ps *ps)
 {
 	int i;
@@ -290,8 +399,8 @@ void	ft_big(t_ps *ps)
 			return ;
 		if (!ft_find_index_back(ps, itab))
 			return ;
-		printf("!%d!\n", ps->hold_first);
-		printf("!%d!\n", ps->hold_second);
+		//printf("!%d!\n", ps->hold_first);
+		//printf("!%d!\n", ps->hold_second);
 		//printf("<%d>", ft_stacksize(ps->stack_a) - ps->hold_second + 1);
 		if ((ps->hold_first < (ft_stacksize(ps->stack_a)) - ps->hold_second + 1))
 		{
@@ -321,6 +430,8 @@ void	ft_big(t_ps *ps)
 			ps->lst_size[itab]--;
 			break;
 		}
+		printf("------------------------------------------\n");
+		ft_insert(ps, ps->little_index, 0);
 		ft_pb(ps);
 		ft_print_stack(ps->stack_b);
 	}

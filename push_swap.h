@@ -32,8 +32,10 @@ typedef struct  s_ps
     int     *lst_size;
     int     hold_first;
     int     hold_second;
+    int     b_size;
     t_stack_a *sorted_lst;
     t_stack_a *ptr_stack_a;
+    t_stack_a *ptr_stack_b;
     t_stack_a *stack_a;
     t_stack_a *stack_b;
 }               t_ps;
