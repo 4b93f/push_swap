@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 17:04:16 by chly-huc          #+#    #+#             */
-/*   Updated: 2020/12/06 18:55:19 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/04/23 17:44:08 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ char	*ft_strdup(const char *s)
 	int		i;
 
 	source = (char *)s;
-	if (!((dest = (char *)malloc(sizeof(char) * (ft_strlen(source) + 1)))))
+	dest = (char *)malloc(sizeof(char) * (ft_strlen(source) + 1));
+	if (!dest)
 		return (0);
 	i = 0;
 	while (source[i])
@@ -28,7 +29,7 @@ char	*ft_strdup(const char *s)
 		i++;
 	}
 	dest[i] = '\0';
-	free((char*)s);
+	free((char *)s);
 	return (dest);
 }
 

@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 08:47:31 by chly-huc          #+#    #+#             */
-/*   Updated: 2021/03/13 16:35:15 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/04/27 14:59:04 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <fcntl.h>
 # include <string.h>
 
-typedef struct		s_list
+typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
@@ -73,6 +73,8 @@ int					ft_isspace(int c);
 int					tablen(char **tab);
 void				*free_tab(char **tab);
 void				print_tab(char **tab);
-
+int					ft_strcmp(char *s1, char *s2);
+long				ft_atoli(const char *str);
+void				ft_free_int_tab(int **tab);
 
 #endif

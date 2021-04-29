@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   checker.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/13 16:21:02 by chly-huc          #+#    #+#             */
-/*   Updated: 2021/03/13 16:27:53 by chly-huc         ###   ########.fr       */
+/*   Created: 2021/03/17 19:50:16 by chly-huc          #+#    #+#             */
+/*   Updated: 2021/04/29 17:31:18 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#ifndef CHECKER_H
+# define CHECKER_H
+# include "../libft/libft.h"
+# include "push_swap.h"
+# include "../get_next_line/get_next_line.h"
 
+void		ft_checker_sa(t_ps *ps);
+void		ft_checker_ra(t_ps *ps);
+void		ft_checker_pa(t_ps *ps);
+void		ft_checker_rb(t_ps *ps);
+void		ft_checker_pb(t_ps *ps);
+void		ft_checker_rrb(t_ps *ps);
+void		ft_checker_rra(t_ps *ps);
 
-int main(int argc, char **argv)
-{
-	int **test = malloc(sizeof(int*) * 2);
-
-	if (test[6])
-		printf("WHAT");
-}
+#endif

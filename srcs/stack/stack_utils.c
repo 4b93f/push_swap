@@ -1,65 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_utils.c                                        :+:      :+:    :+:   */
+/*   stack_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/14 17:14:17 by chly-huc          #+#    #+#             */
-/*   Updated: 2021/03/19 17:53:18 by chly-huc         ###   ########.fr       */
+/*   Created: 2021/04/22 20:26:27 by chly-huc          #+#    #+#             */
+/*   Updated: 2021/04/29 17:25:08 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "../../includes/push_swap.h"
 
-int		ft_stacksize(t_stack_a *lst)
+t_stack_a	*ft_create_stack(t_ps *ps, char **argv)
 {
-	int i;
+	t_stack_a	*list;
+	int			i;
 
-	if (!lst)
-		return (0);
-	i = 0;
-	while (lst != NULL)
-	{
-		lst = lst->next;
-		i++;
-	}
-	return (i);
-}
-
-void	ft_stackclear(t_stack_a **lst, void (*del)(void *))
-{
-	t_stack_a *tmp;
-
-	if (lst || del)
-	{
-		while (*lst)
-		{
-			tmp = (*lst)->next;
-			free(*lst);
-			*lst = tmp;
-		}
-	}
-}
-
-void	ft_print_stack(t_stack_a *lst)
-{
-	if (!lst)
-		return ;
-	while (lst)
-	{
-		printf("stack==$%d$\n", lst->content);
-		lst = lst->next;
-		//printf("{%d}\n", lst->content);
-	}
+	i = 1;
+	list = ft_stacknew(ft_atoi(argv[i]));
+	if (!list && argv)
+		ft_error(MALLOC_ERROR, ps);
+	while (argv[++i])
+		ft_stackadd_back(&list, ft_stacknew(ft_atoi(argv[i])));
+	return (list);
 }
 
 t_stack_a	*ft_stacknew(int content)
 {
-	t_stack_a *newcontent;
+	t_stack_a	*newcontent;
 
-	if (!(newcontent = malloc(sizeof(t_stack_a*))))
-		return (0);
+	newcontent = malloc(sizeof(t_stack_a *));
+	if (!newcontent)
+		return (NULL);
 	newcontent->content = content;
 	newcontent->next = NULL;
 	return (newcontent);

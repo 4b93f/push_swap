@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 17:36:40 by chly-huc          #+#    #+#             */
-/*   Updated: 2020/12/06 14:07:36 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/04/23 17:44:48 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	j = -1;
 	if (!s1)
 		return (ft_strdup(s2));
-	if (!(tab = malloc(sizeof(char) * ft_strlen((char*)s1)
-					+ ft_strlen((char*)s2) + 1)))
+	tab = malloc(sizeof(char) * ft_strlen((char *)s1)
+			+ ft_strlen((char *)s2) + 1);
+	if (!tab)
 		return (NULL);
 	while (s1[++i])
 		tab[i] = s1[i];

@@ -1,6 +1,7 @@
-PS_SRCS =		push_swap.c ft_struct_ps.c ft_engine.c lst/lst_utils.c
-CH_SRCS =		checker.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
-				engine_checker.c lst/lst_utils.c ft_struct_ps.c \
+PS_SRCS =		srcs/push_swap.c srcs/ft_struct_ps.c srcs/ft_engine.c srcs/stack/stack_utils.c srcs/stack/stack_utils_bis.c srcs/instructions/instructions_a.c \
+				srcs/ft_engine_bis.c srcs/instructions/instructions_b.c srcs/ft_verif.c srcs/ft_error.c srcs/utils.c
+CH_SRCS =		srcs/checker.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c srcs/stack/stack_utils.c  srcs/ft_error.c srcs/ft_verif.c \
+				srcs/stack/stack_utils_bis.c srcs/ft_struct_ps.c srcs/instructions/checker_instructions_a.c srcs/instructions/checker_instructions_b.c srcs/utils.c
 
 PS_HEADERS =	push_swap.h
 CH_HEADERS = 	checker.h
@@ -11,7 +12,7 @@ CH_NAME =		checker
 PS_OBJ = 		${PS_SRCS:.c=.o}
 CH_OBJ =		$(CH_SRCS:.c=.o)
 
-FLAGS =			-Wall -Wextra -Werror -g3 -fsanitize=address
+FLAGS =			-Wall -Wextra -Werror
 LIB = ./libft/libft.a
 
 %.o: %.c

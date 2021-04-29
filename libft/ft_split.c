@@ -6,15 +6,15 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 02:10:35 by chly-huc          #+#    #+#             */
-/*   Updated: 2020/11/02 19:02:11 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/04/23 17:42:04 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char		**malloc_free(char **str)
+static char	**malloc_free(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -23,7 +23,7 @@ static char		**malloc_free(char **str)
 	return (NULL);
 }
 
-static int		count_words(char *str, char c)
+static int	count_words(char *str, char c)
 {
 	int	i;
 
@@ -42,7 +42,7 @@ static int		count_words(char *str, char c)
 	return (i);
 }
 
-static char		*malloc_word(char *str, char c)
+static char	*malloc_word(char *str, char c)
 {
 	char	*word;
 	int		i;
@@ -50,7 +50,8 @@ static char		*malloc_word(char *str, char c)
 	i = 0;
 	while (str[i] && str[i] != c)
 		i++;
-	if (!(word = (char *)malloc(sizeof(char) * (i + 1))))
+	word = (char *)malloc(sizeof(char) * (i + 1));
+	if (!word)
 		return (NULL);
 	i = 0;
 	while (str[i] && str[i] != c)
@@ -62,17 +63,17 @@ static char		*malloc_word(char *str, char c)
 	return (word);
 }
 
-char			**ft_split(char *str, char charset)
+char	**ft_split(char *str, char charset)
 {
-	int		words;
-	int		i;
-	char	**tab;
+	int			words;
+	static int	i = 0;
+	char		**tab;
 
-	i = 0;
 	if (!str)
 		return (NULL);
 	words = count_words(str, charset);
-	if (!(tab = malloc(sizeof(char*) * (words + 1))))
+	tab = malloc(sizeof(char *) * (words + 1));
+	if (!tab)
 		return (NULL);
 	while (*str)
 	{
@@ -80,7 +81,8 @@ char			**ft_split(char *str, char charset)
 			str++;
 		if (*str && *str != charset)
 		{
-			if (!(tab[i++] = malloc_word(str, charset)))
+			tab[i++] = malloc_word(str, charset);
+			if (!tab[i])
 				return (malloc_free(tab));
 			while (*str && *str != charset)
 				str++;

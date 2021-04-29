@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 11:37:46 by chly-huc          #+#    #+#             */
-/*   Updated: 2020/01/09 23:02:55 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/04/23 17:28:49 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,13 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	if (!dest && !src)
 		return (0);
 	if (source > ds)
+	{
 		while (i < n)
 		{
 			ds[i] = source[i];
 			i++;
 		}
+	}
 	else
 		while (n-- != 0)
 			ds[n] = source[n];

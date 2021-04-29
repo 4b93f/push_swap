@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 05:38:19 by chly-huc          #+#    #+#             */
-/*   Updated: 2020/01/10 06:04:02 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/04/23 17:45:29 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	i = 0;
 	if (!s || !f)
 		return (NULL);
-	if (!(str = malloc(sizeof(char) * ft_strlen((char *)s) + 1)))
+	str = malloc(sizeof(char) * ft_strlen((char *)s) + 1);
+	if (!str)
 		return (NULL);
 	while (s[i])
 	{
