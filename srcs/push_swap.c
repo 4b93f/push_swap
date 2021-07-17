@@ -69,6 +69,7 @@ int	main(int argc, char **argv)
 	handle_error(ps, argc, argv);
 	ps->stack_a = ft_create_stack(ps, argv);
 	sort_argv(ps, argv);
+	ps->size--;
 	ps->sorted_lst = ft_create_stack(ps, argv);
 	ft_scale(ps);
 	ft_start(ps, argc, argv);

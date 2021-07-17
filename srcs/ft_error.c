@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 20:28:47 by chly-huc          #+#    #+#             */
-/*   Updated: 2021/04/29 17:24:20 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/07/16 13:08:57 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,19 @@
 
 void	handle_error(t_ps *ps, int argc, char **argv)
 {
-	if (argc < 4)
+	int	i;
+
+	i = 1;
+	if (argc < 2)
 		exit(0);
+	if (argc < 4)
+	{
+		while (argv[i + 1] && ft_atoi(argv[i]) < ft_atoi(argv[i + 1]))
+			i++;
+		if (i != argc - 1)
+			printf("Error\n");
+		exit(0);
+	}
 	if (!find_duplicate(argv, ps))
 		exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 20:48:44 by chly-huc          #+#    #+#             */
-/*   Updated: 2021/04/29 17:24:24 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/07/16 12:55:11 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	find_little_big(t_ps *ps)
 	if (!ps->ptr_stack_a)
 		return ;
 	ps->little = ps->ptr_stack_a->content;
+	ps->big = ps->ptr_stack_a->content;
 	while (ps->ptr_stack_a)
 	{
 		if (ps->big <= ps->ptr_stack_a->content)
